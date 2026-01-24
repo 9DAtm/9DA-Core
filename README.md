@@ -24,3 +24,8 @@ All changes require an accepted ADR.
 Read `docs/START-HERE.md`.
 
 © 2025 Zdenka Cucin. All Rights Reserved.
+# 9DA Core
+
+⚠️ **PROPRIETARY SOFTWARE - ALL RIGHTS RESERVED**
+
+9DA Core defines the **governance protocol** for structurally coherent, ethically constrained, and audit-verifiable software ecosystems.
