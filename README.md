@@ -24,6 +24,3 @@ All changes require an accepted ADR.
 Read `docs/START-HERE.md`.
 
 © 2025 Zdenka Cucin. All Rights Reserved.
-
-© 2025 Zdenka Cucin. All Rights Reserved.
-
