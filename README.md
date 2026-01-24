@@ -21,7 +21,9 @@ All changes require an accepted ADR.
 
 ## Start Here
 
-Read `START-HERE.md`.
+Read `docs/START-HERE.md`.
+
+© 2025 Zdenka Cucin. All Rights Reserved.
 
 © 2025 Zdenka Cucin. All Rights Reserved.
 
