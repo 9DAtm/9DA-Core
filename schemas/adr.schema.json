@@ -1,0 +1,626 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/9DAtm/9DA/schemas/adr.schema.json",
+  "title": "9DA Architectural Decision Record Schema",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "adr_id",
+    "title",
+    "status",
+    "date",
+    "authors",
+    "impacts_repositories",
+    "decision_classification",
+    "context_and_problem_statement",
+    "forces_and_constraints",
+    "options_considered",
+    "decision",
+    "consequences",
+    "cross_repository_impact_assessment",
+    "dependency_and_compatibility_analysis",
+    "validation_plan",
+    "ethics_review",
+    "escalation_and_approval",
+    "audit_trail"
+  ],
+
+  "properties": {
+    "adr_id": {
+      "type": "string",
+      "pattern": "^ADR-[0-9]{4}$"
+    },
+
+    "title": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 200
+    },
+
+    "status": {
+      "type": "string",
+      "enum": ["Proposed", "Accepted", "Superseded", "Deprecated"]
+    },
+
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+
+    "authors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^@[a-zA-Z0-9-]+$"
+      }
+    },
+
+    "related_rfcs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^RFC-[0-9]{4}$"
+      }
+    },
+
+    "supersedes": {
+      "type": "string",
+      "pattern": "^ADR-[0-9]{4}$"
+    },
+
+    "impacts_repositories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "9DA-Core",
+          "9DA-Specifications",
+          "9DA-Design-Documents",
+          "9DA-SDK",
+          "9DA-Reference-Implementation",
+          "9DA-Tools",
+          "9DA-Examples",
+          ".github"
+        ]
+      }
+    },
+
+    "decision_classification": {
+      "type": "object",
+      "required": ["change_type", "scope", "breaking_change"],
+      "additionalProperties": false,
+      "properties": {
+        "change_type": {
+          "type": "string",
+          "enum": ["Conceptual", "Logical", "Physical"]
+        },
+        "scope": {
+          "type": "string",
+          "enum": ["Local", "Cross-Repository", "Ecosystem-Wide"]
+        },
+        "breaking_change": {
+          "type": "boolean"
+        }
+      }
+    },
+
+    "context_and_problem_statement": {
+      "type": "object",
+      "required": [
+        "structural_problem",
+        "failure_mode_if_not_addressed",
+        "affected_invariants"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "structural_problem": {
+          "type": "string",
+          "minLength": 50
+        },
+        "failure_mode_if_not_addressed": {
+          "type": "string",
+          "minLength": 20
+        },
+        "affected_invariants": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "forces_and_constraints": {
+      "type": "object",
+      "required": [
+        "architectural_invariants",
+        "ethical_constraints",
+        "dependency_constraints"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "architectural_invariants": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "ethical_constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dependency_constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "other_constraints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "options_considered": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "option_name",
+          "description",
+          "advantages",
+          "structural_costs",
+          "failure_modes",
+          "decision_outcome"
+        ],
+        "properties": {
+          "option_name": {
+            "type": "string",
+            "minLength": 5
+          },
+          "description": {
+            "type": "string",
+            "minLength": 20
+          },
+          "advantages": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "structural_costs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "failure_modes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "decision_outcome": {
+            "type": "string",
+            "enum": ["Accepted", "Rejected"]
+          }
+        }
+      }
+    },
+
+    "decision": {
+      "type": "object",
+      "required": [
+        "selected_option",
+        "what_changes",
+        "what_remains_invariant",
+        "affected_layers",
+        "reversibility"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "selected_option": {
+          "type": "string",
+          "minLength": 5
+        },
+        "what_changes": {
+          "type": "string",
+          "minLength": 20
+        },
+        "what_remains_invariant": {
+          "type": "string",
+          "minLength": 20
+        },
+        "affected_layers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": ["Conceptual", "Logical", "Physical"]
+          }
+        },
+        "reversibility": {
+          "type": "string",
+          "enum": ["Reversible", "Irreversible", "Partially-Reversible"]
+        }
+      }
+    },
+
+    "consequences": {
+      "type": "object",
+      "required": ["positive", "negative"],
+      "additionalProperties": false,
+      "properties": {
+        "positive": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "negative": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unknown": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "cross_repository_impact_assessment": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "repository_name",
+          "nature_of_impact",
+          "required_changes",
+          "version_implications"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "repository_name": {
+            "type": "string",
+            "enum": [
+              "9DA-Core",
+              "9DA-Specifications",
+              "9DA-Design-Documents",
+              "9DA-SDK",
+              "9DA-Reference-Implementation",
+              "9DA-Tools",
+              "9DA-Examples",
+              ".github"
+            ]
+          },
+          "nature_of_impact": {
+            "type": "string",
+            "minLength": 10
+          },
+          "required_changes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "version_implications": {
+            "type": "string",
+            "enum": ["Major", "Minor", "Patch", "None"]
+          },
+          "coordination_actions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+
+    "dependency_and_compatibility_analysis": {
+      "type": "object",
+      "required": [
+        "new_dependencies_introduced",
+        "dependencies_removed",
+        "compliant_with_dependency_matrix"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "new_dependencies_introduced": {
+          "type": "boolean"
+        },
+        "dependencies_removed": {
+          "type": "boolean"
+        },
+        "compliant_with_dependency_matrix": {
+          "type": "boolean",
+          "const": true
+        },
+        "dependency_details": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "migration_plan": {
+      "type": "object",
+      "required": [
+        "affected_versions",
+        "migration_steps",
+        "backward_compatibility_window",
+        "rollback_strategy"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "affected_versions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "migration_steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "backward_compatibility_window": {
+          "type": "string",
+          "minLength": 5
+        },
+        "rollback_strategy": {
+          "type": "string",
+          "minLength": 20
+        },
+        "migration_document_link": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+
+    "validation_plan": {
+      "type": "object",
+      "required": [
+        "tests_affected",
+        "integration_tests_affected",
+        "metrics_to_monitor",
+        "failure_conditions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "tests_affected": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "integration_tests_affected": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "metrics_to_monitor": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "failure_conditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "automation_possible": {
+          "type": "boolean"
+        }
+      }
+    },
+
+    "ethics_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "introduces_ethical_risk",
+        "expands_into_restricted_domains"
+      ],
+      "properties": {
+        "introduces_ethical_risk": {
+          "type": "boolean"
+        },
+        "expands_into_restricted_domains": {
+          "type": "boolean",
+          "const": false
+        },
+        "risk_explanation": {
+          "type": "string",
+          "minLength": 20
+        },
+        "mitigation_strategy": {
+          "type": "string",
+          "minLength": 20
+        }
+      }
+    },
+
+    "escalation_and_approval": {
+      "type": "object",
+      "required": [
+        "required_reviewers",
+        "community_review_period",
+        "final_decision_authority"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "required_reviewers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^@[a-zA-Z0-9-]+$"
+          }
+        },
+        "community_review_period": {
+          "type": "object",
+          "required": ["start_date", "end_date"],
+          "additionalProperties": false,
+          "properties": {
+            "start_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "end_date": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        "final_decision_authority": {
+          "type": "string",
+          "minLength": 5
+        }
+      }
+    },
+
+    "audit_trail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "discussion_links",
+        "ci_validation_links"
+      ],
+      "properties": {
+        "discussion_links": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "ci_validation_links": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "acceptance_commit_hash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        }
+      }
+    }
+  },
+
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "decision_classification": {
+            "properties": {
+              "breaking_change": {
+                "const": true
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "required": ["migration_plan"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "ethics_review": {
+            "anyOf": [
+              {
+                "properties": {
+                  "introduces_ethical_risk": {
+                    "const": true
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "expands_into_restricted_domains": {
+                    "const": true
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ethics_review": {
+            "required": ["risk_explanation", "mitigation_strategy"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "Accepted"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "audit_trail": {
+            "required": ["acceptance_commit_hash"]
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "options_considered": {
+          "contains": {
+            "properties": {
+              "decision_outcome": {
+                "const": "Accepted"
+              }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+﻿# Secrets
+*.pem
+*.key
+private-keys/
+*.p12
+*.pfx
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+*.log
+node_modules/
+__pycache__/
+dist/
+build/
+tmp/
+temp/
+*.tmp

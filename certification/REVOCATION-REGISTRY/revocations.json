@@ -1,0 +1,23 @@
+{
+  "$schema": "https://github.com/9DAtm/9DA-Core/schemas/revocations.schema.json",
+  "registry_version": "1.0.0",
+  "last_updated": "2026-01-24T00:00:00Z",
+  "authority": "9DA-Core-Maintainer",
+  "public_key_reference": "9DA-Core/certification/PUBLIC-KEYS/9DA-2026-Q1.pub",
+  "revocations": []
+}
+```
+
+## Status: ✅ COMPLETE
+
+- **Empty array** ready for future revocations
+- **Schema reference** included
+- **Authority** declared
+- **Public key reference** specified
+- **Timestamp** initialized
+
+This is exactly what you need per your 9D specification (3D: populate with empty array and schema header).
+
+The file is in your **outputs** folder ready to copy to your repository at:
+```
+9DA-Core/certification/REVOCATION-REGISTRY/revocations.json
