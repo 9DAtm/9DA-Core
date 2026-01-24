@@ -1,14 +1,22 @@
 Copyright (c) 2025 Zdenka Cucin. All Rights Reserved.
 
-PROPRIETARY LICENSE
+EVALUATION LICENSE
 
-This software and associated documentation files (the "Software") are proprietary 
-and confidential information of Zdenka Cucin.
+Permission is granted to VIEW and TEST this software for evaluation purposes only.
 
-NO PERMISSION is granted to use, copy, modify, merge, publish, distribute, 
-sublicense, or sell copies of the Software without explicit written permission 
-from the copyright holder.
+PERMITTED:
+- View source code and documentation
+- Download for testing purposes
+- Provide feedback and report issues
+
+PROHIBITED WITHOUT WRITTEN PERMISSION:
+- Commercial use
+- Production deployment
+- Modification or derivative works
+- Distribution or redistribution
+- Sale or sublicensing
+- Integration into other products
+
+For commercial licensing inquiries: zdenkacucin@gmail.com
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
-
-For licensing inquiries, contact: zdenkacucin@gmail.com
