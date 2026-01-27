@@ -1,0 +1,13 @@
+{
+  "certification_id": "9DA-CERT-0001-EXAMPLE",
+  "report_hash_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "certification_level": "9DA-Certified",
+  "scope": "Single-Repository",
+  "signed_by": "9DA-Core-Maintainer",
+  "public_key_fingerprint": "SHA256:BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "signature_algorithm": "ed25519",
+  "signature": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "valid_from": "2026-01-22",
+  "valid_until": "2026-04-22",
+  "revocation_status": "Not-Revoked"
+}

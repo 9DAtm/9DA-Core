@@ -1,0 +1,272 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/9DAtm/9DA/schemas/ethics-capability.schema.json",
+  "title": "9DA Ethics Capability Constraint Schema",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "governing_ethics_reference",
+    "system_identifier",
+    "capability_declaration",
+    "use_domain_analysis",
+    "prohibited_capability_assessment",
+    "capability_composition_risk",
+    "auditability_and_control",
+    "ethical_compliance_attestation"
+  ],
+
+  "properties": {
+    "governing_ethics_reference": {
+      "type": "object",
+      "required": ["document", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "document": {
+          "type": "string",
+          "const": "9DA-Core/ETHICS.md"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+
+    "system_identifier": {
+      "type": "object",
+      "required": ["name", "version", "repository"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 3
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repository": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+
+    "capability_declaration": {
+      "type": "object",
+      "required": [
+        "primary_capabilities",
+        "secondary_capabilities",
+        "configurable_capabilities"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "primary_capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 5
+          }
+        },
+        "secondary_capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "configurable_capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+
+    "use_domain_analysis": {
+      "type": "object",
+      "required": ["intended_use_domains", "excluded_use_domains"],
+      "additionalProperties": false,
+      "properties": {
+        "intended_use_domains": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "Research",
+              "Education",
+              "Systems Modeling",
+              "Decision Support",
+              "Simulation",
+              "Open Collaboration"
+            ]
+          }
+        },
+        "excluded_use_domains": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": [
+              "Surveillance",
+              "Behavioral Monitoring",
+              "Manipulation",
+              "Coercion",
+              "Opaque Automated Decision-Making",
+              "Human Ranking",
+              "Population Control"
+            ]
+          }
+        }
+      }
+    },
+
+    "prohibited_capability_assessment": {
+      "type": "object",
+      "required": [
+        "enables_surveillance",
+        "enables_manipulation",
+        "enables_opaque_decisions",
+        "violates_human_agency",
+        "closed_extractive_derivative"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "enables_surveillance": {
+          "type": "boolean",
+          "const": false
+        },
+        "enables_manipulation": {
+          "type": "boolean",
+          "const": false
+        },
+        "enables_opaque_decisions": {
+          "type": "boolean",
+          "const": false
+        },
+        "violates_human_agency": {
+          "type": "boolean",
+          "const": false
+        },
+        "closed_extractive_derivative": {
+          "type": "boolean",
+          "const": false
+        }
+      }
+    },
+
+    "capability_composition_risk": {
+      "type": "object",
+      "required": [
+        "can_enable_prohibited_use_when_composed",
+        "composition_analysis"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "can_enable_prohibited_use_when_composed": {
+          "type": "boolean",
+          "const": false
+        },
+        "composition_analysis": {
+          "type": "string",
+          "minLength": 50
+        }
+      }
+    },
+
+    "auditability_and_control": {
+      "type": "object",
+      "required": [
+        "reasoning_traceability",
+        "human_override",
+        "configuration_lockdown",
+        "exit_and_shutdown",
+        "autonomous_action"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "reasoning_traceability": {
+          "type": "string",
+          "enum": ["Full", "Partial"]
+        },
+        "human_override": {
+          "type": "boolean",
+          "const": true
+        },
+        "configuration_lockdown": {
+          "type": "boolean",
+          "const": true
+        },
+        "exit_and_shutdown": {
+          "type": "boolean",
+          "const": true
+        },
+        "autonomous_action": {
+          "type": "boolean"
+        }
+      }
+    },
+
+    "ethical_compliance_attestation": {
+      "type": "object",
+      "required": [
+        "attesting_party",
+        "attestation_date",
+        "compliance_statement",
+        "revocation_conditions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "attesting_party": {
+          "type": "string",
+          "minLength": 3
+        },
+        "attestation_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "compliance_statement": {
+          "type": "string",
+          "minLength": 50
+        },
+        "revocation_conditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "auditability_and_control": {
+            "properties": {
+              "reasoning_traceability": {
+                "const": "Partial"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "auditability_and_control": {
+            "properties": {
+              "autonomous_action": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

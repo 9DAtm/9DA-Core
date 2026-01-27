@@ -1,0 +1,373 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/9DAtm/9DA/schemas/dependency-matrix.schema.json",
+  "title": "9DA Dependency Matrix Enforcement Schema",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "governing_matrix_reference",
+    "repository_identity",
+    "declared_dependencies",
+    "declared_non_dependencies",
+    "dependency_rules",
+    "validation_attestation"
+  ],
+
+  "properties": {
+    "governing_matrix_reference": {
+      "type": "object",
+      "required": ["document", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "document": {
+          "type": "string",
+          "const": "9DA-Core/DEPENDENCY-MATRIX.md"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+
+    "repository_identity": {
+      "type": "object",
+      "required": ["name", "layer"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": [
+            "9DA-Core",
+            "9DA-Specifications",
+            "9DA-Design-Documents",
+            "9DA-SDK",
+            "9DA-Reference-Implementation",
+            "9DA-Tools",
+            "9DA-Examples",
+            ".github"
+          ]
+        },
+        "layer": {
+          "type": "string",
+          "enum": ["Conceptual", "Logical", "Physical", "Meta"]
+        }
+      }
+    },
+
+    "declared_dependencies": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["repository", "dependency_type"],
+        "additionalProperties": false,
+        "properties": {
+          "repository": {
+            "type": "string",
+            "enum": [
+              "9DA-Core",
+              "9DA-Specifications",
+              "9DA-Design-Documents",
+              "9DA-SDK",
+              "9DA-Reference-Implementation",
+              "9DA-Tools",
+              "9DA-Examples"
+            ]
+          },
+          "dependency_type": {
+            "type": "string",
+            "enum": ["Documentation", "Build-Time", "Run-Time", "Test-Time"]
+          },
+          "adr_reference": {
+            "type": "string",
+            "pattern": "^ADR-[0-9]{4}$"
+          }
+        }
+      }
+    },
+
+    "declared_non_dependencies": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "9DA-Core",
+          "9DA-Specifications",
+          "9DA-Design-Documents",
+          "9DA-SDK",
+          "9DA-Reference-Implementation",
+          "9DA-Tools",
+          "9DA-Examples"
+        ]
+      }
+    },
+
+    "dependency_rules": {
+      "type": "object",
+      "required": [
+        "no_undeclared_dependencies",
+        "no_circular_dependencies",
+        "layer_direction_enforced",
+        "conditional_dependencies_declared"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "no_undeclared_dependencies": {
+          "type": "boolean",
+          "const": true
+        },
+        "no_circular_dependencies": {
+          "type": "boolean",
+          "const": true
+        },
+        "layer_direction_enforced": {
+          "type": "boolean",
+          "const": true
+        },
+        "conditional_dependencies_declared": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+
+    "validation_attestation": {
+      "type": "object",
+      "required": [
+        "validated_by_ci",
+        "validator_used",
+        "validation_date"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "validated_by_ci": {
+          "type": "boolean",
+          "const": true
+        },
+        "validator_used": {
+          "type": "string",
+          "minLength": 3
+        },
+        "validation_date": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    }
+  },
+
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "repository_identity": {
+            "properties": {
+              "name": {
+                "const": "9DA-Core"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "repository_identity": {
+            "properties": {
+              "layer": {
+                "const": "Conceptual"
+              }
+            }
+          },
+          "declared_dependencies": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "repository_identity": {
+            "properties": {
+              "name": {
+                "const": "9DA-Specifications"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "repository_identity": {
+            "properties": {
+              "layer": {
+                "const": "Conceptual"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "repository_identity": {
+            "properties": {
+              "name": {
+                "const": "9DA-Design-Documents"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "repository_identity": {
+            "properties": {
+              "layer": {
+                "const": "Logical"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "repository_identity": {
+            "properties": {
+              "name": {
+                "enum": ["9DA-SDK", "9DA-Reference-Implementation", "9DA-Tools", "9DA-Examples"]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "repository_identity": {
+            "properties": {
+              "layer": {
+                "const": "Physical"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "repository_identity": {
+            "properties": {
+              "name": {
+                "const": ".github"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "repository_identity": {
+            "properties": {
+              "layer": {
+                "const": "Meta"
+              }
+            }
+          },
+          "declared_dependencies": {
+            "items": {
+              "properties": {
+                "dependency_type": {
+                  "enum": ["Documentation"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "repository_identity": {
+            "properties": {
+              "layer": {
+                "const": "Conceptual"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "declared_dependencies": {
+            "items": {
+              "properties": {
+                "dependency_type": {
+                  "enum": ["Documentation"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "repository_identity": {
+            "properties": {
+              "layer": {
+                "const": "Physical"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "declared_dependencies": {
+            "items": {
+              "properties": {
+                "repository": {
+                  "not": {
+                    "enum": ["9DA-Examples"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "declared_dependencies": {
+          "items": {
+            "if": {
+              "properties": {
+                "dependency_type": {
+                  "enum": ["Build-Time", "Run-Time"]
+                }
+              }
+            },
+            "then": {
+              "required": ["adr_reference"]
+            },
+            "else": {
+              "not": {
+                "required": ["adr_reference"]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

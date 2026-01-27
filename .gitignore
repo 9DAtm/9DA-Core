@@ -1,0 +1,30 @@
+﻿# 9DA-Core .gitignore
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (if tooling is added)
+node_modules/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+.temp/
+
+# Personal notes (not for commit)
+NOTES.md
+TODO.md
+
+# Build artifacts (if any)
+dist/
+build/
