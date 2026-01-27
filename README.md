@@ -247,28 +247,26 @@ Compliance without certification is fraud.
 
 ## Repository Structure
 
-
-
 9DA-Core/
-├── adr/
-├── certification/
-├── docs/
-├── examples/
-├── schemas/
-├── sdk/
-│   ├── layer-1/
-│   ├── layer-2/
-│   ├── layer-3/
-│   ├── layer-4/
-│   ├── layer-5/
-│   └── layer-6/
-├── CODE_OF_CONDUCT.md
-├── CONTRIBUTING.md
-├── LICENSE
-├── LICENSING-STATUS.md
-├── EVALUATION-ONLY.md
-├── COMMERCIAL-LICENSING.md
-└── README.md
+── adr/                         # Architecture Decision Records
+── certification/               # Compliance & certification specs
+── docs/                        # Governance documentation
+── examples/                    # Non-normative examples
+── schemas/                     # JSON validation schemas
+── sdk/                         # SDK Layer Specifications
+   ── layer-1/                  # Awareness & Sensemaking
+   ── layer-2/                  # Economic & Incentive
+   ── layer-3/                  # Education & Knowledge
+   ── layer-4/                  # Governance & Authority
+   ── layer-5/                  # Security & Adversarial
+   ── layer-6/                  # Termination & Dissolution
+── CODE_OF_CONDUCT.md
+── CONTRIBUTING.md
+── LICENSE
+── LICENSING-STATUS.md
+── EVALUATION-ONLY.md
+── COMMERCIAL-LICENSING.md
+── README.md
 
 
 ---
