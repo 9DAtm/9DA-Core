@@ -249,15 +249,6 @@ Compliance without certification is fraud.
 <img width="501" height="481" alt="image" src="https://github.com/user-attachments/assets/ca5c924a-4dea-4f9e-9943-3cae50408b68" />
 
 
-CODE_OF_CONDUCT.md
-CONTRIBUTING.md
-LICENSE
-LICENSING-STATUS.md
-EVALUATION-ONLY.md
-COMMERCIAL-LICENSING.md
-README.md
-
-
 ## Start Here
 
 **Governance Overview**
