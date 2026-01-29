@@ -318,7 +318,6 @@ Binary outcomes: approved or not approved.
 ---
 
 ## Repository Structure
-
 9DA-Core/
 ├── adr/
 ├── certification/
