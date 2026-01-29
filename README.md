@@ -315,9 +315,11 @@ No persistent memory. No accumulating authority.
 Contradictions are proven, not guessed.  
 Binary outcomes: approved or not approved.
 
+## Repository Structure9DA-Core/
+
 ---
 
-## Repository Structure9DA-Core/
+9DA-Core/
 ├── adr/
 ├── certification/
 ├── docs/
@@ -333,10 +335,12 @@ Binary outcomes: approved or not approved.
 ├── LICENSING-STATUS.md
 └── README.md
 
+---
 
+## SDK Structure (9DA-Core/sdk/)
 
 ---
-## SDK Structure (9DA-Core/sdk/)
+
 sdk/
 ├── src/
 │   ├── agents/
