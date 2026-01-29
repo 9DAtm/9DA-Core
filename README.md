@@ -317,7 +317,6 @@ Binary outcomes: approved or not approved.
 
 ## Repository Structure9DA-Core/
 
----
 
 9DA-Core/
 ├── adr/
@@ -335,11 +334,9 @@ Binary outcomes: approved or not approved.
 ├── LICENSING-STATUS.md
 └── README.md
 
----
 
 ## SDK Structure (9DA-Core/sdk/)
 
----
 
 sdk/
 ├── src/
@@ -385,7 +382,6 @@ sdk/
 ├── README.md
 └── TERMINATION_SEMANTICS.md
 
----
 
 ## Getting Started
 
