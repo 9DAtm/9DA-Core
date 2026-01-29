@@ -317,9 +317,70 @@ Binary outcomes: approved or not approved.
 
 ---
 
-## Repository Structure
- 
-<img width="801" height="1218" alt="image" src="https://github.com/user-attachments/assets/19a080af-5d30-4b45-b164-70fa0cfcc091" />
+## Repository Structure9DA-Core/
+├── adr/
+├── certification/
+├── docs/
+├── examples/
+├── schemas/
+├── sdk/
+├── .gitignore
+├── CODE_OF_CONDUCT.md
+├── COMMERCIAL-LICENSING.md
+├── CONTRIBUTING.md
+├── EVALUATION-ONLY.md
+├── LICENSE
+├── LICENSING-STATUS.md
+└── README.md
+
+
+
+---
+## SDK Structure (9DA-Core/sdk/)
+sdk/
+├── src/
+│   ├── agents/
+│   │   ├── agent1_essence.ts
+│   │   ├── agent2_framing.ts
+│   │   ├── agent3_phenomenology.ts
+│   │   ├── agent4_patterns.ts
+│   │   ├── agent5_trajectory.ts
+│   │   ├── agent6_reinforcement.ts
+│   │   ├── agent7_synthesis.ts
+│   │   ├── agent8_universal.ts
+│   │   ├── agent9_termination.ts
+│   │   ├── base.ts
+│   │   └── index.ts
+│   ├── cli/
+│   │   ├── index.ts
+│   │   └── index-dual.ts
+│   ├── config/
+│   │   └── default.config.json
+│   ├── kernel/
+│   │   ├── invariants.ts
+│   │   ├── types.ts
+│   │   └── validators.ts
+│   ├── llm/
+│   │   └── providers.ts
+│   ├── modes/
+│   │   └── approval/
+│   │       ├── types.ts
+│   │       ├── clustering.ts
+│   │       ├── resolver.ts
+│   │       └── engine.ts
+│   ├── runtime/
+│   │   └── executor.ts
+│   └── index.ts
+├── examples/
+│   ├── preventive-health-burnout.json
+│   ├── agi-governance-test.json
+│   └── community-garden-simple.json
+├── .gitignore
+├── package.json
+├── tsconfig.json
+├── README.md
+└── TERMINATION_SEMANTICS.md
+
 ---
 
 ## Getting Started
