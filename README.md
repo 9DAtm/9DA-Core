@@ -333,11 +333,8 @@ Binary outcomes: approved or not approved.
 ├── LICENSE
 ├── LICENSING-STATUS.md
 └── README.md
-
-
-
 ---
-## SDK Structure (9DA-Core/sdk/)
+SDK Structure (9DA-Core/sdk/)
 sdk/
 ├── src/
 │   ├── agents/
@@ -381,7 +378,6 @@ sdk/
 ├── tsconfig.json
 ├── README.md
 └── TERMINATION_SEMANTICS.md
-
 ---
 
 ## Getting Started
