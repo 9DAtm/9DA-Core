@@ -320,12 +320,12 @@ Binary outcomes: approved or not approved.
 ## Repository Structure
 
 9DA-Core/
-├── adr/                    
-├── certification/          
-├── docs/                   
-├── examples/               
-├── schemas/                
-├── sdk/                  
+├── adr/
+├── certification/
+├── docs/
+├── examples/
+├── schemas/
+├── sdk/
 ├── .gitignore
 ├── CODE_OF_CONDUCT.md
 ├── COMMERCIAL-LICENSING.md
@@ -334,6 +334,7 @@ Binary outcomes: approved or not approved.
 ├── LICENSE
 ├── LICENSING-STATUS.md
 └── README.md
+
 
 
 ---
@@ -353,8 +354,8 @@ sdk/
 │   │   ├── base.ts
 │   │   └── index.ts
 │   ├── cli/
-│   │   ├── index.ts          
-│   │   └── index-dual.ts      
+│   │   ├── index.ts
+│   │   └── index-dual.ts
 │   ├── config/
 │   │   └── default.config.json
 │   ├── kernel/
@@ -364,7 +365,7 @@ sdk/
 │   ├── llm/
 │   │   └── providers.ts
 │   ├── modes/
-│   │   └── approval/          
+│   │   └── approval/
 │   │       ├── types.ts
 │   │       ├── clustering.ts
 │   │       ├── resolver.ts
@@ -374,12 +375,13 @@ sdk/
 │   └── index.ts
 ├── examples/
 │   ├── preventive-health-burnout.json
-│   └── community-garden-simple.json    
+│   ├── agi-governance-test.json
+│   └── community-garden-simple.json
 ├── .gitignore
 ├── package.json
 ├── tsconfig.json
-├── README.md                           
-└── TERMINATION_SEMANTICS.md            
+├── README.md
+└── TERMINATION_SEMANTICS.md
 
 ---
 
