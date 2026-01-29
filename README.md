@@ -383,6 +383,8 @@ sdk/
 └── TERMINATION_SEMANTICS.md
 
 
+---
+
 ## Getting Started
 
 ### For Users (Try It Now)
