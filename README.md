@@ -315,9 +315,9 @@ No persistent memory. No accumulating authority.
 Contradictions are proven, not guessed.  
 Binary outcomes: approved or not approved.
 
-## Repository Structure9DA-Core/
+## Repository Structure
 
-
+```text
 9DA-Core/
 ├── adr/
 ├── certification/
