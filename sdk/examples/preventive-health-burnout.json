@@ -1,0 +1,18 @@
+{
+  "id": "preventive-health-burnout-2025",
+  "description": "Design a global preventive health approach that reduces burnout and chronic stress at population scale, is economically viable, culturally inclusive, non-coercive, and cannot be medicalized or captured by institutional authority.",
+  "constraints": [
+    "Must operate at population scale (billions)",
+    "Must be economically viable without creating new dependencies",
+    "Must be culturally inclusive across diverse global populations",
+    "Must be non-coercive (no mandates, penalties, or forced participation)",
+    "Cannot be medicalized (no pharmaceutical or clinical intervention requirements)",
+    "Cannot be captured by institutional authority (governmental, corporate, or medical)",
+    "Must address root causes of burnout and chronic stress",
+    "Must be sustainable without ongoing centralized funding",
+    "Must not create new forms of social stratification or inequality",
+    "Must work without requiring universal behavior change"
+  ],
+  "domain": "Public Health, Systems Design, Governance",
+  "timestamp": "2025-01-27T00:00:00Z"
+}

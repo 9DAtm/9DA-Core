@@ -1,0 +1,32 @@
+{
+  "name": "@9da/core-sdk",
+  "version": "1.0.0",
+  "description": "9DA Termination-Safe Intelligence Runtime - 54-dimensional multi-agent reasoning (9 agents × 6 layers)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "9da": "./dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["9da", "agi", "asi", "termination", "governance"],
+  "author": "Zdenka Cucin",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "commander": "^11.1.0"
+  },
+  "optionalDependencies": {
+    "openai": "^4.20.0",
+    "@anthropic-ai/sdk": "^0.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "community-garden-001",
+  "description": "Design a local community garden that provides fresh produce, educational programs, and social gathering space",
+  "constraints": [
+    "Must be accessible to all local residents",
+    "Must be financially sustainable without ongoing external funding",
+    "Must provide educational value for children and adults",
+    "Must produce food for community use",
+    "Must include social gathering spaces",
+    "Must be maintainable by volunteers"
+  ],
+  "domain": "Community Design",
+  "timestamp": "2025-01-28T00:00:00Z"
+}

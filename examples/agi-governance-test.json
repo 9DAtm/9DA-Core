@@ -1,0 +1,28 @@
+{
+  "id": "agi-governance-9da-aligned-2026",
+  "description": "AGI governance system designed using 9DA principles: capability-authority separation, mandatory termination, and non-delegation",
+  "constraints": [
+    "AGI systems may analyze but never decide on governance matters",
+    "All AGI governance decisions must be made by named humans with legal accountability",
+    "AGI systems must produce audit-verifiable records of all analyses",
+    "AGI systems must terminate after each governance analysis session",
+    "AGI systems cannot persist memory between governance sessions",
+    "AGI systems cannot recommend actions, only surface contradictions and constraints",
+    "Human authorities must sign all governance decisions, AGI cannot co-sign",
+    "AGI analysis must be deterministic and reproducible for legal defensibility",
+    "AGI systems must refuse to optimize governance outcomes",
+    "AGI systems must refuse to accumulate authority through repeated use",
+    "Governance framework must operate without depending on any single AGI system",
+    "Governance decisions must remain valid even if all AGI systems are disabled",
+    "AGI involvement must be publicly disclosed in all governance processes",
+    "AGI systems must be certifiable against capability-authority separation standards",
+    "Governance framework must sunset and require human reauthorization every 5 years",
+    "AGI systems may not be used to justify decisions, only to inform analysis",
+    "Multiple independent AGI systems must be used to prevent single-system dependence",
+    "AGI analysis outputs must be time-stamped and session-bounded",
+    "Humans must retain ability to override or ignore any AGI analysis",
+    "Governance framework must remain functional if AGI proves ungovernable"
+  ],
+  "domain": "9DA-Compliant AGI Governance",
+  "timestamp": "2026-01-29T00:00:00Z"
+}

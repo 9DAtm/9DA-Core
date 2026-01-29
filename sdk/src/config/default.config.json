@@ -1,0 +1,8 @@
+{
+  "executionMode": "MOCK",
+  "llm": {
+    "provider": null
+  },
+  "parallelExecution": true,
+  "timeoutMs": 300000
+}
