@@ -387,7 +387,6 @@ sdk/
 
 ---
 
-
 ## Getting Started
 
 ### For Users (Try It Now)
