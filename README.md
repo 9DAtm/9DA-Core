@@ -317,7 +317,7 @@ Binary outcomes: approved or not approved.
 
 ## Repository Structure
 
-```text
+```
 9DA-Core/
 ├── adr/
 ├── certification/
@@ -326,6 +326,7 @@ Binary outcomes: approved or not approved.
 ├── schemas/
 ├── sdk/
 ├── .gitignore
+├── AI Governance Evaluation Article.pdf
 ├── CODE_OF_CONDUCT.md
 ├── COMMERCIAL-LICENSING.md
 ├── CONTRIBUTING.md
@@ -375,6 +376,7 @@ sdk/
 ├── examples/
 │   ├── preventive-health-burnout.json
 │   ├── agi-governance-test.json
+│   ├── planetary-governance-proposal.json
 │   └── community-garden-simple.json
 ├── .gitignore
 ├── package.json
