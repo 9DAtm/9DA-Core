@@ -491,21 +491,47 @@ Or switch to MOCK mode (remove `--live` flag)
 ```
 sdk/
 ├── src/
-│   ├── agents/         # 9 fixed agents (1D-9D)
-│   ├── cli/            # Command-line interface
-│   ├── config/         # Default configuration
-│   ├── kernel/         # Core types & validation
-│   ├── llm/            # AI provider abstraction
+│   ├── agents/
+│   │   ├── agent1_essence.ts
+│   │   ├── agent2_framing.ts
+│   │   ├── agent3_phenomenology.ts
+│   │   ├── agent4_patterns.ts
+│   │   ├── agent5_trajectory.ts
+│   │   ├── agent6_reinforcement.ts
+│   │   ├── agent7_synthesis.ts
+│   │   ├── agent8_universal.ts
+│   │   ├── agent9_termination.ts
+│   │   ├── base.ts
+│   │   └── index.ts
+│   ├── cli/
+│   │   ├── index.ts
+│   │   └── index-dual.ts
+│   ├── config/
+│   │   └── default.config.json
+│   ├── kernel/
+│   │   ├── invariants.ts
+│   │   ├── types.ts
+│   │   └── validators.ts
+│   ├── llm/
+│   │   └── providers.ts
 │   ├── modes/
-│   │   └── approval/   # Approval engine
-│   ├── runtime/        # Execution engine
+│   │   └── approval/
+│   │       ├── types.ts
+│   │       ├── clustering.ts
+│   │       ├── resolver.ts
+│   │       └── engine.ts
+│   ├── runtime/
+│   │   └── executor.ts
 │   └── index.ts
-├── examples/            # Sample tasks
-├── runs/                # Output artifacts (generated)
+├── examples/
+│   ├── preventive-health-burnout.json
+│   ├── agi-governance-test.json
+│   ├── planetary-governance-proposal.json
+│   └── community-garden-simple.json
 ├── .gitignore
 ├── package.json
 ├── tsconfig.json
-├── README.md            # This file
+├── README.md
 └── TERMINATION_SEMANTICS.md
 
 
