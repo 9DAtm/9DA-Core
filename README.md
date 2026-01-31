@@ -326,7 +326,7 @@ Binary outcomes: approved or not approved.
 ├── schemas/
 ├── sdk/
 ├── .gitignore
-├── AI Governance Evaluation Article.pdf
+├── 9DA™ Master Overview.pdf
 ├── CODE_OF_CONDUCT.md
 ├── COMMERCIAL-LICENSING.md
 ├── CONTRIBUTING.md
