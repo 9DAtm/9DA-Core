@@ -1,3 +1,10 @@
+
+> **[▶ Watch Live Demo: 9DA™ NINE FIELDS](https://9datm.github.io/9DA-Core/demo_nine_fields.html)**
+
+Docs/demo consists of:
+HTML frontend - Interactive, browser-based visualization
+Python backend - Computational engine with full governance layer
+
 # 9DA Core
 
 **Find contradictions in complex plans before they break**
