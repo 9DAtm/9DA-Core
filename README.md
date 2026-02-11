@@ -21,11 +21,16 @@ Python backend - Computational engine with full governance layer
 9DA Core is submitted as governance benchmark infrastructure for the
 Snorkel Open Benchmarks Grant (March 2026).
 
-The AI evaluation gap — as identified by Snorkel, Hugging Face, and others —
-requires benchmarks that close three dimensions: environment complexity,
-autonomy horizon, and output complexity.
+The AI evaluation gap requires benchmarks closing three dimensions:
+environment complexity, autonomy horizon, and output complexity.
 
-9DA Core addresses the two most underdeveloped dimensions:
+9DA Core addresses all three:
+
+**Environment Complexity**
+- Nine-field structure maps domain environments from human cognitive
+  to systemic regulation
+- Certification schemas define coherence thresholds per domain field
+- Agents are evaluated across all nine fields simultaneously
 
 **Autonomy Horizon**
 - Architecture invariants enforce coherence retention across long trajectories
@@ -34,15 +39,13 @@ autonomy horizon, and output complexity.
 
 **Output Complexity**
 - Multi-factor rubrics defined in `certification/` schemas
-- Trustworthy output criteria: risk calibration, uncertainty surfacing, stop conditions
+- Trustworthy output criteria: risk calibration, uncertainty surfacing,
+  stop conditions
 - Audit-verifiable decision trails via `docs/` and `adr/`
 
 This repository is the authoritative governance protocol.
-
 Implementation: [multidimensional-self-expanding-agent](https://github.com/9DAtm/multidimensional-self-expanding-agent)
-
 Neural architecture: [9DA](https://github.com/9DAtm/9DA)
-
 Classification standard: [9DA-AGI-ASI](https://github.com/9DAtm/9DA-AGI-ASI)
 
 **Real-world example:**
