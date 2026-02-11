@@ -44,8 +44,11 @@ environment complexity, autonomy horizon, and output complexity.
 - Audit-verifiable decision trails via `docs/` and `adr/`
 
 This repository is the authoritative governance protocol.
+
 Implementation: [multidimensional-self-expanding-agent](https://github.com/9DAtm/multidimensional-self-expanding-agent)
+
 Neural architecture: [9DA](https://github.com/9DAtm/9DA)
+
 Classification standard: [9DA-AGI-ASI](https://github.com/9DAtm/9DA-AGI-ASI)
 
 **Real-world example:**
