@@ -9,18 +9,38 @@ Python backend - Computational engine with full governance layer
 
 # 9DA Core
 
-**Find contradictions in complex plans before they break**
-
-9DA analyzes proposals, policies, and system designs from 9 perspectives simultaneously — like having 9 expert reviewers check your work for hidden conflicts you missed.
-
----
-
 ## What Does 9DA Actually Do?
 
 **In 3 sentences:**
 1. You give 9DA a plan, policy, or design with multiple constraints
 2. 9DA finds contradictions between your requirements that humans miss
 3. 9DA either helps you fix them (Approval Mode) or proves they can't be fixed (Termination Mode)
+
+## Open Benchmarks Grant Application
+
+9DA Core is submitted as governance benchmark infrastructure for the
+Snorkel Open Benchmarks Grant (March 2026).
+
+The AI evaluation gap — as identified by Snorkel, Hugging Face, and others —
+requires benchmarks that close three dimensions: environment complexity,
+autonomy horizon, and output complexity.
+
+9DA Core addresses the two most underdeveloped dimensions:
+
+**Autonomy Horizon**
+- Architecture invariants enforce coherence retention across long trajectories
+- Certification schemas define measurable thresholds for governed operation
+- ADR process ensures non-stationary goal adaptation is traceable
+
+**Output Complexity**
+- Multi-factor rubrics defined in `certification/` schemas
+- Trustworthy output criteria: risk calibration, uncertainty surfacing, stop conditions
+- Audit-verifiable decision trails via `docs/` and `adr/`
+
+This repository is the authoritative governance protocol.
+Implementation: [multidimensional-self-expanding-agent](https://github.com/9DAtm/multidimensional-self-expanding-agent)
+Neural architecture: [9DA](https://github.com/9DAtm/9DA)
+Classification standard: [9DA-AGI-ASI](https://github.com/9DAtm/9DA-AGI-ASI)
 
 **Real-world example:**
 - **Input:** "Design a healthcare system that prevents burnout AND maximizes efficiency AND keeps costs low AND provides universal coverage"
