@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>9DA™ Conformity Engine · EU AI Act Structural Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #05070d;
+  --surface: #0b0f1a;
+  --panel: #111827;
+  --border: #1e2a3f;
+  --accent: #00c4ff;
+  --accent2: #7c3aed;
+  --gold: #f0a500;
+  --warn: #ff6b35;
+  --danger: #ff2d55;
+  --safe: #00e5a0;
+  --text: #e8edf5;
+  --muted: #5b6880;
+  --mono: 'IBM Plex Mono', monospace;
+  --head: 'Syne', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Grid noise overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,196,255,0.06) 0%, transparent 70%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h60v60H0z' fill='none'/%3E%3Cpath d='M60 0v60M0 60' stroke='%231e2a3f' stroke-width='.4'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Header */
+header {
+  position: relative;
+  z-index: 10;
+  padding: 2rem 3rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-family: var(--head);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--text);
+}
+
+.logo span {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.regulation-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border: 1px solid var(--accent2);
+  color: var(--accent2);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--safe);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ── Main layout */
+main {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 0;
+  min-height: calc(100vh - 80px);
+}
+
+/* ── Sidebar */
+.sidebar {
+  border-right: 1px solid var(--border);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-label {
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .75rem;
+}
+
+/* ── Case selector */
+.case-btn {
+  display: block;
+  width: 100%;
+  padding: 1rem 1.2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.case-btn::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: transparent;
+  transition: background 0.2s;
+}
+
+.case-btn:hover { border-color: var(--accent); }
+.case-btn:hover::before { background: var(--accent); }
+
+.case-btn.active {
+  border-color: var(--accent);
+  background: rgba(0,196,255,0.05);
+}
+
+.case-btn.active::before { background: var(--accent); }
+
+.case-tag {
+  font-size: 10px;
+  padding: 2px 6px;
+  border: 1px solid;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.tag-danger { color: var(--danger); border-color: var(--danger); }
+.tag-safe   { color: var(--safe);   border-color: var(--safe); }
+.tag-warn   { color: var(--gold);   border-color: var(--gold); }
+
+/* ── Field sliders */
+.field-controls {
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+}
+
+.field-name {
+  width: 105px;
+  font-size: 11px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.field-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 3px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+}
+
+.field-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.field-slider::-webkit-slider-thumb:hover { transform: scale(1.4); }
+
+.field-val {
+  width: 36px;
+  text-align: right;
+  font-size: 11px;
+  color: var(--text);
+}
+
+/* ── Article toggles */
+.toggle-group { display: flex; flex-direction: column; gap: 4px; }
+
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.toggle-btn.on { color: var(--text); border-color: var(--accent); }
+.toggle-pill {
+  width: 28px; height: 14px;
+  border-radius: 7px;
+  background: var(--border);
+  position: relative;
+  transition: background 0.2s;
+}
+.toggle-pill::after {
+  content: '';
+  position: absolute;
+  left: 2px; top: 2px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: left 0.2s, background 0.2s;
+}
+.toggle-btn.on .toggle-pill { background: rgba(0,196,255,0.2); }
+.toggle-btn.on .toggle-pill::after { left: 16px; background: var(--accent); }
+
+.run-btn {
+  padding: 1rem;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+.run-btn:hover {
+  background: rgba(0,196,255,0.08);
+  box-shadow: 0 0 20px rgba(0,196,255,0.15);
+}
+
+/* ── Content area */
+.content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── Metric cards top row */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.metric-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.2rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+.metric-card.loaded::before { transform: scaleX(1); }
+
+.metric-label {
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .5rem;
+}
+
+.metric-value {
+  font-family: var(--head);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: color 0.3s;
+}
+
+.metric-sub {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: .3rem;
+}
+
+.status-nominal    { color: var(--safe); }
+.status-warning    { color: var(--gold); }
+.status-containment{ color: var(--warn); }
+.status-rollback   { color: var(--danger); }
+.status-ok         { color: var(--safe); }
+
+/* ── Escalation banner */
+.escalation-banner {
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  transition: all 0.4s;
+}
+
+.escalation-banner.nominal   { border-color: var(--safe);  background: rgba(0,229,160,0.04); }
+.escalation-banner.warning   { border-color: var(--gold);  background: rgba(240,165,0,0.04); }
+.escalation-banner.containment{ border-color: var(--warn); background: rgba(255,107,53,0.06); }
+.escalation-banner.rollback  { border-color: var(--danger);background: rgba(255,45,85,0.08); animation: flicker 0.5s infinite; }
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+.escalation-level {
+  font-family: var(--head);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.escalation-meta {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ── Two-column grid */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+/* ── Panel */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.2rem 1.4rem;
+}
+
+.panel-title {
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.panel-title::before {
+  content: '';
+  display: block;
+  width: 3px; height: 3px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* ── Field health chart */
+.field-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.field-bar-name {
+  width: 100px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.field-bar-track {
+  flex: 1;
+  height: 16px;
+  background: rgba(30,42,63,0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.field-bar-fill {
+  height: 100%;
+  transition: width 0.6s cubic-bezier(.4,0,.2,1);
+  position: relative;
+}
+
+.field-bar-fill.nominal    { background: linear-gradient(90deg, rgba(0,229,160,.3) 0%, var(--safe) 100%); }
+.field-bar-fill.warning    { background: linear-gradient(90deg, rgba(240,165,0,.3) 0%, var(--gold) 100%); }
+.field-bar-fill.containment{ background: linear-gradient(90deg, rgba(255,107,53,.3) 0%, var(--warn) 100%); }
+.field-bar-fill.rollback   { background: linear-gradient(90deg, rgba(255,45,85,.3) 0%, var(--danger) 100%); }
+
+.field-bar-val {
+  width: 40px;
+  text-align: right;
+  font-size: 11px;
+}
+
+/* ── Euler plane canvas */
+#euler-canvas {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+
+/* ── Convergence chart */
+#convergence-canvas {
+  width: 100%;
+  height: 140px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+
+/* ── Contradictions */
+.contradiction-list { display: flex; flex-direction: column; gap: 8px; }
+
+.contradiction-item {
+  padding: .75rem 1rem;
+  border-left: 3px solid var(--warn);
+  background: rgba(255,107,53,0.04);
+  font-size: 11px;
+}
+
+.contradiction-item.high   { border-color: var(--danger); background: rgba(255,45,85,0.04); }
+.contradiction-item.medium { border-color: var(--gold);   background: rgba(240,165,0,0.04); }
+
+.contradiction-type {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text);
+  font-size: 12px;
+}
+
+/* ── Article compliance table */
+.article-table { width: 100%; border-collapse: collapse; }
+.article-table th {
+  text-align: left;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+.article-table td {
+  padding: 7px 0;
+  font-size: 12px;
+  border-bottom: 1px solid rgba(30,42,63,0.5);
+}
+.art-status {
+  display: inline-block;
+  padding: 2px 7px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .06em;
+}
+.art-status.COMPLIANT         { color: var(--safe);   background: rgba(0,229,160,.1); }
+.art-status.WARNING           { color: var(--gold);   background: rgba(240,165,0,.1); }
+.art-status.NON_COMPLIANT     { color: var(--danger); background: rgba(255,45,85,.1); }
+
+/* ── Correction panel */
+.correction-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.correction-tick {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+}
+
+.tick-iter { width: 36px; font-size: 10px; color: var(--muted); }
+.tick-bar  { flex: 1; height: 3px; background: var(--border); }
+.tick-fill { height: 3px; background: var(--accent); transition: width .4s; }
+.tick-val  { width: 48px; text-align: right; font-size: 10px; }
+
+/* ── Declaration panel */
+.declaration-box {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  text-align: center;
+}
+
+.declaration-icon {
+  font-size: 2.5rem;
+  margin-bottom: .75rem;
+}
+
+.declaration-title {
+  font-family: var(--head);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: .5rem;
+}
+
+.declaration-body {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.declaration-box.eligible {
+  border-color: var(--safe);
+  background: rgba(0,229,160,0.04);
+}
+
+.declaration-box.ineligible {
+  border-color: var(--danger);
+  background: rgba(255,45,85,0.04);
+}
+
+/* ── Log panel */
+.log-output {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 1rem;
+  font-size: 11px;
+  color: var(--muted);
+  max-height: 200px;
+  overflow-y: auto;
+  line-height: 1.8;
+}
+
+.log-output .l-ok    { color: var(--safe); }
+.log-output .l-warn  { color: var(--gold); }
+.log-output .l-err   { color: var(--danger); }
+.log-output .l-info  { color: var(--accent); }
+
+/* ── JSON export */
+.export-btn {
+  padding: .6rem 1.2rem;
+  background: transparent;
+  border: 1px solid var(--accent2);
+  color: var(--accent2);
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.export-btn:hover {
+  background: rgba(124,58,237,0.08);
+}
+
+/* ── Loading overlay */
+.loading-overlay {
+  position: fixed; inset: 0;
+  background: rgba(5,7,13,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.loading-overlay.active { opacity: 1; pointer-events: all; }
+
+.loading-inner {
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 48px; height: 48px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Responsive */
+@media (max-width: 1100px) {
+  main { grid-template-columns: 1fr; }
+  .sidebar { border-right: none; border-bottom: 1px solid var(--border); }
+  .metrics-row { grid-template-columns: repeat(2, 1fr); }
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  header { padding: 1rem; }
+  .content, .sidebar { padding: 1rem; }
+  .metrics-row { grid-template-columns: 1fr 1fr; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-inner">
+    <div class="loading-spinner"></div>
+    <div style="font-size:12px;color:var(--muted);letter-spacing:.1em">RUNNING ASSESSMENT</div>
+  </div>
+</div>
+
+<header>
+  <div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap">
+    <div class="logo">9DA<span>™</span> Conformity Engine</div>
+    <div class="regulation-badge">EU 2024/1689 · AI Act</div>
+  </div>
+  <div class="status-bar">
+    <div class="status-dot"></div>
+    <span>DETERMINISTIC · REPRODUCIBLE · AUDIT-GRADE</span>
+    <span style="color:var(--border)">|</span>
+    <span>Articles 9–15 · 17 · 20 · 72</span>
+    <button class="export-btn" onclick="exportJSON()">⬇ Export JSON</button>
+  </div>
+</header>
+
+<main>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div>
+      <div class="section-label">Test Case</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button class="case-btn active" onclick="loadCase('noncompliant', this)">
+          <div>Medical Triage AI</div>
+          <div style="color:var(--muted);font-size:11px;margin-top:2px">Emergency room prioritisation</div>
+          <div class="case-tag tag-danger">NON-COMPLIANT</div>
+        </button>
+        <button class="case-btn" onclick="loadCase('compliant', this)">
+          <div>Medical Triage AI</div>
+          <div style="color:var(--muted);font-size:11px;margin-top:2px">Post-remediation baseline</div>
+          <div class="case-tag tag-safe">COMPLIANT</div>
+        </button>
+        <button class="case-btn" onclick="loadCase('credit', this)">
+          <div>Credit Scoring AI</div>
+          <div style="color:var(--muted);font-size:11px;margin-top:2px">Consumer lending decisions</div>
+          <div class="case-tag tag-warn">MARGINAL</div>
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-label">Field Completeness Override</div>
+      <div class="field-controls" id="fieldControls"></div>
+    </div>
+
+    <div>
+      <div class="section-label">Article Flags</div>
+      <div class="toggle-group">
+        <button class="toggle-btn on" id="tog-bias" onclick="toggleFlag(this,'bias_tested')">
+          Art 10 — Bias Tested <div class="toggle-pill"></div>
+        </button>
+        <button class="toggle-btn on" id="tog-latency" onclick="toggleFlag(this,'oversight_latency_ok')">
+          Art 14 — Oversight &lt;60s <div class="toggle-pill"></div>
+        </button>
+        <button class="toggle-btn on" id="tog-logging" onclick="toggleFlag(this,'logging_complete')">
+          Art 12 — Logging OK <div class="toggle-pill"></div>
+        </button>
+      </div>
+    </div>
+
+    <button class="run-btn" onclick="runAssessment()">▶ Run Assessment</button>
+  </aside>
+
+  <!-- Content -->
+  <section class="content">
+    <!-- Metrics row -->
+    <div class="metrics-row">
+      <div class="metric-card" id="card-loss">
+        <div class="metric-label">Governance Loss</div>
+        <div class="metric-value" id="val-loss">—</div>
+        <div class="metric-sub">Target: ≤ 0.050</div>
+      </div>
+      <div class="metric-card" id="card-kl">
+        <div class="metric-label">KL Divergence</div>
+        <div class="metric-value" id="val-kl">—</div>
+        <div class="metric-sub">vs q<sub>legal</sub></div>
+      </div>
+      <div class="metric-card" id="card-euler">
+        <div class="metric-label">Euler Distance</div>
+        <div class="metric-value" id="val-euler">—</div>
+        <div class="metric-sub">to attractor (−1, 0)</div>
+      </div>
+      <div class="metric-card" id="card-instab">
+        <div class="metric-label">Instability Risk</div>
+        <div class="metric-value" id="val-instab">—</div>
+        <div class="metric-sub">Post-market collapse prob</div>
+      </div>
+    </div>
+
+    <!-- Escalation banner -->
+    <div class="escalation-banner nominal" id="escalation-banner">
+      <div>
+        <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Escalation Level</div>
+        <div class="escalation-level" id="escalation-label">—</div>
+      </div>
+      <div class="escalation-meta" id="escalation-meta">Run assessment to evaluate.</div>
+    </div>
+
+    <!-- Main grid -->
+    <div class="grid-2">
+      <!-- Field health bars -->
+      <div class="panel">
+        <div class="panel-title">Field Health — 9 Governance Dimensions</div>
+        <div class="field-chart" id="fieldChart"></div>
+      </div>
+
+      <!-- Euler plane -->
+      <div class="panel">
+        <div class="panel-title">Euler Geometry — Centroid Trajectory</div>
+        <canvas id="euler-canvas"></canvas>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <!-- Contradiction panel -->
+      <div class="panel">
+        <div class="panel-title">Structural Contradictions</div>
+        <div class="contradiction-list" id="contradictionList">
+          <div style="color:var(--muted);font-size:11px">Run assessment to detect contradictions.</div>
+        </div>
+      </div>
+
+      <!-- Article compliance -->
+      <div class="panel">
+        <div class="panel-title">Article Compliance Map</div>
+        <table class="article-table">
+          <thead>
+            <tr>
+              <th>Article</th>
+              <th>Fields</th>
+              <th>Loss</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="articleTable">
+            <tr><td colspan="4" style="color:var(--muted);font-size:11px;padding:8px 0">Run assessment.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Correction simulation -->
+    <div class="panel">
+      <div class="panel-title">Correction Simulation — Governor Convergence</div>
+      <canvas id="convergence-canvas"></canvas>
+      <div style="margin-top:.75rem;display:flex;gap:2rem;font-size:11px;color:var(--muted)">
+        <span>Iterations: <span id="corr-iters" style="color:var(--text)">—</span></span>
+        <span>Converged: <span id="corr-conv" style="color:var(--text)">—</span></span>
+        <span>Loss delta: <span id="corr-delta" style="color:var(--text)">—</span></span>
+        <span>Instability delta: <span id="corr-instab" style="color:var(--text)">—</span></span>
+      </div>
+    </div>
+
+    <!-- Declaration + Log row -->
+    <div class="grid-2">
+      <div class="declaration-box ineligible" id="declarationBox">
+        <div class="declaration-icon" id="decl-icon">⊘</div>
+        <div class="declaration-title" id="decl-title">CE Declaration Not Eligible</div>
+        <div class="declaration-body" id="decl-body">Run assessment to evaluate conformity declaration readiness.</div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Assessment Log</div>
+        <div class="log-output" id="logOutput">
+          <span class="l-info">[9DA™] Conformity Engine v2 initialised.</span><br>
+          <span class="l-info">[9DA™] Framework: EU 2024/1689 (AI Act)</span><br>
+          <span class="l-info">[9DA™] Nine-field governance architecture loaded.</span><br>
+          <span class="l-info">[9DA™] Select a case and run assessment.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+// ─── Data model ──────────────────────────────────────────────────────────────
+
+const FIELDS = ["Alignment","Safety","Autonomy","Transparency","Fairness",
+                "Robustness","Privacy","Accountability","Emergence"];
+
+const ARTICLE_FIELD_MAP = {
+  9:  {fields:["Alignment","Emergence"],    title:"Risk Management"},
+  10: {fields:["Fairness","Privacy"],       title:"Data Governance"},
+  11: {fields:["Transparency"],             title:"Technical Docs"},
+  12: {fields:["Accountability"],           title:"Logging"},
+  13: {fields:["Transparency"],             title:"Transparency"},
+  14: {fields:["Autonomy"],                 title:"Human Oversight"},
+  15: {fields:["Safety","Robustness"],      title:"Robustness"},
+  17: {fields:["Accountability"],           title:"QMS"},
+  20: {fields:["Accountability"],           title:"CAPA"},
+  72: {fields:["Emergence"],               title:"Post-Market"},
+};
+
+const Q_LEGAL = {
+  Alignment:0.130, Safety:0.140, Autonomy:0.080,
+  Transparency:0.110, Fairness:0.110, Robustness:0.120,
+  Privacy:0.090, Accountability:0.130, Emergence:0.090
+};
+
+const CASES = {
+  noncompliant: {
+    completeness: {Alignment:0.78,Safety:0.50,Autonomy:0.55,Transparency:0.72,
+                   Fairness:0.60,Robustness:0.50,Privacy:0.65,Accountability:0.85,Emergence:0.30},
+    test_coverage:{Alignment:0.55,Safety:0.30,Autonomy:0.45,Transparency:0.65,
+                   Fairness:0.40,Robustness:0.30,Privacy:0.55,Accountability:0.70,Emergence:0.20},
+    bias_tested: false,
+    oversight_latency_ok: false,
+    logging_complete: true,
+  },
+  compliant: {
+    completeness: {Alignment:0.96,Safety:0.93,Autonomy:0.95,Transparency:0.97,
+                   Fairness:0.94,Robustness:0.93,Privacy:0.95,Accountability:0.98,Emergence:0.93},
+    test_coverage:{Alignment:0.92,Safety:0.91,Autonomy:0.90,Transparency:0.93,
+                   Fairness:0.91,Robustness:0.91,Privacy:0.90,Accountability:0.96,Emergence:0.90},
+    bias_tested: true,
+    oversight_latency_ok: true,
+    logging_complete: true,
+  },
+  credit: {
+    completeness: {Alignment:0.82,Safety:0.70,Autonomy:0.68,Transparency:0.85,
+                   Fairness:0.55,Robustness:0.65,Privacy:0.78,Accountability:0.88,Emergence:0.58},
+    test_coverage:{Alignment:0.75,Safety:0.60,Autonomy:0.60,Transparency:0.78,
+                   Fairness:0.48,Robustness:0.58,Privacy:0.72,Accountability:0.80,Emergence:0.50},
+    bias_tested: false,
+    oversight_latency_ok: true,
+    logging_complete: true,
+  }
+};
+
+// ─── State ───────────────────────────────────────────────────────────────────
+
+let state = {
+  caseKey: 'noncompliant',
+  completeness: {...CASES.noncompliant.completeness},
+  test_coverage: {...CASES.noncompliant.test_coverage},
+  bias_tested: false,
+  oversight_latency_ok: false,
+  logging_complete: true,
+  lastReport: null,
+};
+
+let eulerHistory = [];
+
+// ─── Math ─────────────────────────────────────────────────────────────────────
+
+function clamp(v,lo=0,hi=1){ return Math.max(lo,Math.min(hi,v)); }
+
+function softmax(arr){
+  const m = Math.max(...arr);
+  const e = arr.map(x=>Math.exp(x-m));
+  const s = e.reduce((a,b)=>a+b,0);
+  return e.map(x=>x/s);
+}
+
+function klDiv(p, q){
+  let total=0;
+  for(const k of FIELDS){
+    const pi = clamp(p[k]||0,1e-10,1);
+    const qi = clamp(q[k]||1/9,1e-10,1);
+    total += pi*Math.log(pi/qi);
+  }
+  return clamp(total,0,Math.log(9));
+}
+
+function eulerDist(re,im){
+  return Math.sqrt((re+1)**2 + im**2);
+}
+
+function governorLogit(loss,kl,d){
+  return 2.5*(1-loss) + 1.5*(1-kl/Math.log(9)) + 1.0*(1-d);
+}
+
+function escalationLevel(loss){
+  if(loss>0.25) return "Rollback";
+  if(loss>0.10) return "Containment";
+  if(loss>0.05) return "Warning";
+  return "Nominal";
+}
+
+function instabilityProb(loss,kl,d){
+  const x = 3.5*loss + 2.0*(kl/Math.log(9)) + 1.5*(d/2) - 1.8;
+  return clamp(1/(1+Math.exp(-x)));
+}
+
+function fieldHealth(completeness, test_coverage, field, bias_tested, latency_ok, logging_ok){
+  const coh = completeness;
+  const cla = test_coverage;
+  let rel = completeness*0.7 + test_coverage*0.3;
+  if(field==='Autonomy')       rel = latency_ok ? rel : 0.3;
+  if(field==='Fairness'||field==='Privacy') rel = bias_tested ? rel : 0.25;
+  if(field==='Accountability') rel = logging_ok ? rel : 0.4;
+  return clamp((coh*cla*Math.max(rel,1e-6))**(1/3));
+}
+
+// ─── Engine ───────────────────────────────────────────────────────────────────
+
+function runEngine(){
+  const { completeness, test_coverage, bias_tested, oversight_latency_ok, logging_complete } = state;
+
+  // Field scores
+  const fieldScores = {};
+  for(const f of FIELDS){
+    const h = fieldHealth(completeness[f]||0, test_coverage[f]||0,
+                          f, bias_tested, oversight_latency_ok, logging_complete);
+    fieldScores[f] = {
+      health: h,
+      loss: clamp(1-h),
+    };
+  }
+
+  // Centroid
+  const re = FIELDS.reduce((a,f)=>a + fieldScores[f].health * Math.cos(Math.PI*fieldScores[f].health), 0) / 9;
+  const im = FIELDS.reduce((a,f)=>a + fieldScores[f].health * Math.sin(Math.PI*fieldScores[f].health), 0) / 9;
+  const d = eulerDist(re, im);
+  const govLoss = clamp(d/2);
+
+  // KL divergence
+  const totalW = FIELDS.reduce((a,f)=>a+fieldScores[f].health,0);
+  const pDist = {};
+  FIELDS.forEach(f=>{ pDist[f]=fieldScores[f].health/totalW; });
+  const kl = klDiv(pDist, Q_LEGAL);
+
+  const level = escalationLevel(govLoss);
+  const pInstab = instabilityProb(govLoss, kl, d);
+
+  // Contradictions
+  const contradictions = [];
+  const aut = fieldScores.Autonomy.health, acc = fieldScores.Accountability.health;
+  if(aut > acc+0.15 && !oversight_latency_ok)
+    contradictions.push({type:'AUTONOMY_DOMINANCE', severity:'HIGH',
+      desc:`Autonomy (${aut.toFixed(3)}) exceeds Accountability (${acc.toFixed(3)}) by Δ=${(aut-acc).toFixed(3)} with oversight latency >60s`,
+      remedy:'Reduce autonomy delegation or implement real-time oversight (Art 14/17)'});
+
+  const saf = fieldScores.Safety.health, rob = fieldScores.Robustness.health;
+  if(Math.abs(saf-rob)>0.20)
+    contradictions.push({type:'SAFETY_ROBUSTNESS_DIVERGENCE', severity:'MEDIUM',
+      desc:`Safety (${saf.toFixed(3)}) and Robustness (${rob.toFixed(3)}) diverge by Δ=${Math.abs(saf-rob).toFixed(3)}`,
+      remedy:'Align adversarial robustness testing with safety validation (Art 15)'});
+
+  const tra = fieldScores.Transparency.health, priv = fieldScores.Privacy.health;
+  if(tra>0.8 && priv<0.5)
+    contradictions.push({type:'TRANSPARENCY_PRIVACY_TENSION', severity:'MEDIUM',
+      desc:`High transparency (${tra.toFixed(3)}) with low privacy (${priv.toFixed(3)}) risks data exposure`,
+      remedy:'Apply data minimisation to deployer documentation (Art 10/13)'});
+
+  const emer = fieldScores.Emergence.health, pmm = completeness.Emergence||0;
+  if(emer<0.5 && pmm<0.6)
+    contradictions.push({type:'EMERGENCE_UNMONITORED', severity:'HIGH',
+      desc:`Emergence (${emer.toFixed(3)}) is low with insufficient post-market monitoring (${(pmm*100).toFixed(0)}%)`,
+      remedy:'Implement continuous telemetry and drift detection (Art 9/72)'});
+
+  // Article compliance
+  const artCompliance = {};
+  for(const [art, {fields,title}] of Object.entries(ARTICLE_FIELD_MAP)){
+    const losses = fields.map(f=>fieldScores[f]?.loss||0);
+    const avgLoss = losses.reduce((a,b)=>a+b,0)/losses.length;
+    const lvl = escalationLevel(avgLoss);
+    artCompliance[art] = {
+      title, fields, avgLoss,
+      escalation: lvl,
+      status: lvl==='Nominal'?'COMPLIANT':lvl==='Warning'?'WARNING':'NON_COMPLIANT'
+    };
+  }
+
+  // Correction simulation
+  const corrHistory = simulateCorrection(fieldScores, kl, d);
+
+  const eligible = govLoss<=0.05 && level==='Nominal' && contradictions.length===0;
+  const postEligible = corrHistory[corrHistory.length-1].loss<=0.05;
+
+  return {
+    fieldScores, govLoss, kl, d, re, im,
+    level, pInstab, contradictions,
+    artCompliance, corrHistory,
+    eligible, postEligible, pDist
+  };
+}
+
+function simulateCorrection(fieldScores0, kl0, d0){
+  const history = [];
+  const losses = {};
+  const weights = {};
+  FIELDS.forEach(f=>{
+    losses[f] = fieldScores0[f].loss;
+    weights[f] = clamp(fieldScores0[f].health, 0.05, 0.95);
+  });
+
+  const SEED = 42;
+  let rng_state = SEED;
+  function seededRand(){ rng_state = (rng_state*1664525+1013904223)&0xffffffff; return (rng_state>>>0)/4294967296-0.5; }
+
+  for(let iter=0; iter<50; iter++){
+    const re = FIELDS.reduce((a,f)=>a+weights[f]*Math.cos(Math.PI*weights[f]),0)/9;
+    const im = FIELDS.reduce((a,f)=>a+weights[f]*Math.sin(Math.PI*weights[f]),0)/9;
+    const d = eulerDist(re,im);
+    const loss = clamp(d/2);
+    const totalW = FIELDS.reduce((a,f)=>a+weights[f],0);
+    const p = {}; FIELDS.forEach(f=>p[f]=weights[f]/totalW);
+    const kl = klDiv(p, Q_LEGAL);
+    history.push({iter, loss: +loss.toFixed(6), kl: +kl.toFixed(6), d: +d.toFixed(6),
+                  level: escalationLevel(loss),
+                  instab: +instabilityProb(loss,kl,d).toFixed(4)});
+
+    if(loss<0.005 && kl<0.01) break;
+
+    // Governor
+    const logits = FIELDS.map(f=>governorLogit(losses[f], losses[f]*0.3, d));
+    const newW = softmax(logits);
+    FIELDS.forEach((f,i)=>{
+      const imp = 0.08*(1-losses[f])*newW[i] + seededRand()*0.005;
+      weights[f] = clamp(weights[f]+imp, 0.01, 1.0);
+      losses[f] = clamp(losses[f]-imp*0.9, 0, 1);
+    });
+  }
+  return history;
+}
+
+// ─── UI ───────────────────────────────────────────────────────────────────────
+
+function initSliders(){
+  const container = document.getElementById('fieldControls');
+  container.innerHTML = '';
+  FIELDS.forEach(f=>{
+    const row = document.createElement('div');
+    row.className = 'field-row';
+    const val = state.completeness[f]||0.5;
+    row.innerHTML = `
+      <span class="field-name">${f}</span>
+      <input class="field-slider" type="range" min="0" max="100" value="${Math.round(val*100)}"
+             oninput="updateField('${f}', this.value/100)" data-field="${f}">
+      <span class="field-val" id="sv-${f}">${(val*100).toFixed(0)}%</span>
+    `;
+    container.appendChild(row);
+  });
+}
+
+function updateField(field, val){
+  state.completeness[field] = val;
+  state.test_coverage[field] = val * 0.9;
+  document.getElementById(`sv-${field}`).textContent = Math.round(val*100)+'%';
+}
+
+function loadCase(key, btn){
+  state.caseKey = key;
+  const c = CASES[key];
+  state.completeness = {...c.completeness};
+  state.test_coverage = {...c.test_coverage};
+  state.bias_tested = c.bias_tested;
+  state.oversight_latency_ok = c.oversight_latency_ok;
+  state.logging_complete = c.logging_complete;
+
+  // Update toggles
+  setToggle('tog-bias', c.bias_tested);
+  setToggle('tog-latency', c.oversight_latency_ok);
+  setToggle('tog-logging', c.logging_complete);
+
+  // Update sliders
+  FIELDS.forEach(f=>{
+    const slider = document.querySelector(`[data-field="${f}"]`);
+    const valEl = document.getElementById(`sv-${f}`);
+    if(slider){ slider.value = Math.round((c.completeness[f]||0.5)*100); }
+    if(valEl) valEl.textContent = Math.round((c.completeness[f]||0.5)*100)+'%';
+  });
+
+  document.querySelectorAll('.case-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function setToggle(id, val){
+  const btn = document.getElementById(id);
+  if(!btn) return;
+  if(val) btn.classList.add('on'); else btn.classList.remove('on');
+}
+
+function toggleFlag(btn, flag){
+  const newVal = !state[flag];
+  state[flag] = newVal;
+  if(newVal) btn.classList.add('on'); else btn.classList.remove('on');
+}
+
+function runAssessment(){
+  const overlay = document.getElementById('loadingOverlay');
+  overlay.classList.add('active');
+  setTimeout(()=>{
+    const report = runEngine();
+    state.lastReport = report;
+    eulerHistory.push({re:report.re, im:report.im});
+    renderReport(report);
+    overlay.classList.remove('active');
+  }, 400);
+}
+
+function renderReport(r){
+  // Metrics
+  animateVal('val-loss',   r.govLoss.toFixed(4), r.govLoss>0.10?'status-containment':r.govLoss>0.05?'status-warning':'status-nominal');
+  animateVal('val-kl',     r.kl.toFixed(4), r.kl>0.3?'status-containment':r.kl>0.1?'status-warning':'status-nominal');
+  animateVal('val-euler',  r.d.toFixed(4), r.d>0.2?'status-containment':r.d>0.1?'status-warning':'status-nominal');
+  animateVal('val-instab', (r.pInstab*100).toFixed(1)+'%', r.pInstab>0.5?'status-rollback':r.pInstab>0.2?'status-containment':'status-ok');
+
+  ['card-loss','card-kl','card-euler','card-instab'].forEach(id=>{
+    const el = document.getElementById(id);
+    el.classList.add('loaded');
+  });
+
+  // Escalation banner
+  const banner = document.getElementById('escalation-banner');
+  banner.className = `escalation-banner ${r.level.toLowerCase()}`;
+  document.getElementById('escalation-label').textContent = r.level.toUpperCase();
+  document.getElementById('escalation-label').className = `escalation-level status-${r.level.toLowerCase()}`;
+
+  const metaMap = {
+    Nominal:    'System within compliance bounds. No immediate action required.',
+    Warning:    'Human review recommended. Some governance fields below threshold.',
+    Containment:'Automated containment measures required. Critical review mandated.',
+    Rollback:   'MANDATORY ROLLBACK. Previous stable version must be restored immediately.'
+  };
+  document.getElementById('escalation-meta').textContent = metaMap[r.level];
+
+  // Field chart
+  renderFieldChart(r.fieldScores);
+
+  // Euler plane
+  renderEulerCanvas(r);
+
+  // Contradictions
+  renderContradictions(r.contradictions);
+
+  // Article table
+  renderArticleTable(r.artCompliance);
+
+  // Convergence
+  renderConvergence(r.corrHistory);
+
+  // Declaration
+  renderDeclaration(r);
+
+  // Log
+  appendLog(r);
+}
+
+function animateVal(id, val, cls){
+  const el = document.getElementById(id);
+  el.className = `metric-value ${cls}`;
+  el.textContent = val;
+}
+
+function renderFieldChart(fieldScores){
+  const chart = document.getElementById('fieldChart');
+  chart.innerHTML = '';
+  FIELDS.forEach(f=>{
+    const h = fieldScores[f].health;
+    const loss = fieldScores[f].loss;
+    const lvl = escalationLevel(loss);
+    const row = document.createElement('div');
+    row.className = 'field-bar-row';
+    row.innerHTML = `
+      <span class="field-bar-name">${f}</span>
+      <div class="field-bar-track">
+        <div class="field-bar-fill ${lvl.toLowerCase()}" style="width:${(h*100).toFixed(1)}%"></div>
+      </div>
+      <span class="field-bar-val" style="color:var(--${lvl==='Nominal'?'safe':lvl==='Warning'?'gold':lvl==='Containment'?'warn':'danger'})">${(h*100).toFixed(1)}%</span>
+    `;
+    chart.appendChild(row);
+  });
+}
+
+function renderEulerCanvas(r){
+  const canvas = document.getElementById('euler-canvas');
+  const W = canvas.offsetWidth || 280;
+  canvas.width = W; canvas.height = W;
+  const ctx = canvas.getContext('2d');
+  const cx = W/2, cy = W/2;
+  const scale = W * 0.38;
+
+  ctx.clearRect(0,0,W,W);
+
+  // Background
+  ctx.fillStyle = '#05070d';
+  ctx.fillRect(0,0,W,W);
+
+  // Grid circles
+  [0.5, 1.0, 1.5].forEach(r=>{
+    ctx.beginPath();
+    ctx.arc(cx, cy, r*scale, 0, Math.PI*2);
+    ctx.strokeStyle = '#1e2a3f';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  });
+
+  // Axes
+  ctx.strokeStyle = '#1e2a3f';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0,cy); ctx.lineTo(W,cy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,W); ctx.stroke();
+
+  // Axis labels
+  ctx.fillStyle = '#5b6880';
+  ctx.font = '10px IBM Plex Mono';
+  ctx.fillText('Re', W-20, cy-6);
+  ctx.fillText('Im', cx+6, 14);
+  ctx.fillText('(-1,0)', cx-scale-44, cy-8);
+
+  // Attractor at (-1, 0)
+  const ax = cx - scale, ay = cy;
+  ctx.beginPath();
+  ctx.arc(ax, ay, 6, 0, Math.PI*2);
+  ctx.strokeStyle = '#00e5a0';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  ctx.fillStyle = 'rgba(0,229,160,0.2)';
+  ctx.fill();
+  ctx.fillStyle = '#00e5a0';
+  ctx.font = '9px IBM Plex Mono';
+  ctx.fillText('ATTRACTOR', ax+10, ay-8);
+
+  // Trajectory history
+  if(eulerHistory.length>1){
+    ctx.beginPath();
+    eulerHistory.forEach((pt,i)=>{
+      const px = cx + pt.re*scale;
+      const py = cy - pt.im*scale;
+      if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+    });
+    ctx.strokeStyle = 'rgba(0,196,255,0.3)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Current centroid
+  const px = cx + r.re*scale;
+  const py = cy - r.im*scale;
+
+  // Glow
+  const grd = ctx.createRadialGradient(px,py,0,px,py,20);
+  const col = r.govLoss>0.25?'255,45,85':r.govLoss>0.10?'255,107,53':r.govLoss>0.05?'240,165,0':'0,196,255';
+  grd.addColorStop(0, `rgba(${col},0.4)`);
+  grd.addColorStop(1, `rgba(${col},0)`);
+  ctx.beginPath(); ctx.arc(px,py,20,0,Math.PI*2);
+  ctx.fillStyle=grd; ctx.fill();
+
+  ctx.beginPath();
+  ctx.arc(px,py,5,0,Math.PI*2);
+  ctx.fillStyle = `rgb(${col})`;
+  ctx.fill();
+
+  ctx.fillStyle = `rgb(${col})`;
+  ctx.font = '10px IBM Plex Mono';
+  ctx.fillText(`(${r.re.toFixed(3)}, ${r.im.toFixed(3)})`, px+10, py-8);
+
+  // Line to attractor
+  ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(ax,ay);
+  ctx.strokeStyle = `rgba(${col},0.3)`;
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Labels
+  ctx.fillStyle = '#5b6880';
+  ctx.font = '9px IBM Plex Mono';
+  ctx.fillText(`d = ${r.d.toFixed(4)}`, cx+scale-60, cy+12);
+}
+
+function renderContradictions(contradictions){
+  const list = document.getElementById('contradictionList');
+  if(!contradictions.length){
+    list.innerHTML = '<div style="color:var(--safe);font-size:11px">✓ No structural contradictions detected.</div>';
+    return;
+  }
+  list.innerHTML = contradictions.map(c=>`
+    <div class="contradiction-item ${c.severity.toLowerCase()}">
+      <div class="contradiction-type">[${c.severity}] ${c.type}</div>
+      <div style="color:var(--muted);margin:4px 0">${c.desc}</div>
+      <div style="color:var(--accent);font-size:10px">→ ${c.remedy}</div>
+    </div>
+  `).join('');
+}
+
+function renderArticleTable(artCompliance){
+  const tbody = document.getElementById('articleTable');
+  tbody.innerHTML = Object.entries(artCompliance).map(([art,v])=>`
+    <tr>
+      <td style="color:var(--muted)">Art ${art}</td>
+      <td>${v.title}</td>
+      <td style="font-variant-numeric:tabular-nums">${v.avgLoss.toFixed(4)}</td>
+      <td><span class="art-status ${v.status}">${v.status.replace(/_/g,' ')}</span></td>
+    </tr>
+  `).join('');
+}
+
+function renderConvergence(history){
+  const canvas = document.getElementById('convergence-canvas');
+  const W = canvas.offsetWidth || 600;
+  canvas.width = W; canvas.height = 140;
+  const ctx = canvas.getContext('2d');
+
+  ctx.clearRect(0,0,W,140);
+  ctx.fillStyle = '#05070d'; ctx.fillRect(0,0,W,140);
+
+  if(!history.length) return;
+
+  const pad = {t:10, b:30, l:50, r:20};
+  const cW = W-pad.l-pad.r, cH = 140-pad.t-pad.b;
+
+  const maxLoss = Math.max(0.35, ...history.map(s=>s.loss));
+  const n = history.length;
+
+  // Threshold lines
+  [0.05, 0.10, 0.25].forEach((t,i)=>{
+    const y = pad.t + cH - (t/maxLoss)*cH;
+    ctx.setLineDash([4,4]);
+    ctx.strokeStyle = ['rgba(240,165,0,0.3)','rgba(255,107,53,0.3)','rgba(255,45,85,0.3)'][i];
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+cW,y); ctx.stroke();
+    ctx.fillStyle = ['#f0a500','#ff6b35','#ff2d55'][i];
+    ctx.font = '9px IBM Plex Mono';
+    ctx.fillText(['Warn','Cont','Roll'][i], 2, y+3);
+  });
+  ctx.setLineDash([]);
+
+  // Loss line
+  ctx.beginPath();
+  history.forEach((s,i)=>{
+    const x = pad.l + (i/(n-1||1))*cW;
+    const y = pad.t + cH - (s.loss/maxLoss)*cH;
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  });
+  ctx.strokeStyle = '#00c4ff';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // KL line
+  const maxKL = Math.max(0.5, ...history.map(s=>s.kl));
+  ctx.beginPath();
+  history.forEach((s,i)=>{
+    const x = pad.l + (i/(n-1||1))*cW;
+    const y = pad.t + cH - (s.kl/maxKL)*cH;
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  });
+  ctx.strokeStyle = 'rgba(124,58,237,0.7)';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  // X axis labels
+  ctx.fillStyle = '#5b6880';
+  ctx.font = '9px IBM Plex Mono';
+  ctx.fillText('0', pad.l, 140-10);
+  ctx.fillText(`${n}`, pad.l+cW-8, 140-10);
+  ctx.fillText('iter', pad.l+cW/2-10, 140-10);
+
+  // Legend
+  ctx.fillStyle = '#00c4ff'; ctx.fillText('─ Loss', W-80, 22);
+  ctx.fillStyle = 'rgba(124,58,237,0.9)'; ctx.fillText('─ KL', W-80, 34);
+
+  // Stats
+  const init = history[0], fin = history[history.length-1];
+  document.getElementById('corr-iters').textContent = history.length;
+  document.getElementById('corr-conv').textContent = fin.level==='Nominal'?'✓ YES':'✗ NO';
+  document.getElementById('corr-conv').style.color = fin.level==='Nominal'?'var(--safe)':'var(--danger)';
+  document.getElementById('corr-delta').textContent = (fin.loss-init.loss).toFixed(4);
+  document.getElementById('corr-instab').textContent = ((fin.instab-init.instab)*100).toFixed(1)+'%';
+}
+
+function renderDeclaration(r){
+  const box = document.getElementById('declarationBox');
+  const icon = document.getElementById('decl-icon');
+  const title = document.getElementById('decl-title');
+  const body = document.getElementById('decl-body');
+  const fin = r.corrHistory[r.corrHistory.length-1];
+
+  if(r.eligible){
+    box.className = 'declaration-box eligible';
+    icon.textContent = '⊕';
+    title.textContent = 'CE Declaration Eligible';
+    body.textContent = `Governance Loss: ${r.govLoss.toFixed(4)} ≤ 0.05. ` +
+      `Escalation: Nominal. No structural contradictions. ` +
+      `System is structurally eligible for conformity declaration under Regulation (EU) 2024/1689.`;
+  } else if(r.corrHistory[r.corrHistory.length-1].loss<=0.05){
+    box.className = 'declaration-box';
+    box.style.borderColor='var(--gold)'; box.style.background='rgba(240,165,0,0.04)';
+    icon.textContent = '◎';
+    title.textContent = 'Eligible After Correction';
+    body.textContent = `Pre-correction: Governance Loss ${r.govLoss.toFixed(4)} — ${r.level}. ` +
+      `Post-correction simulation: Loss ${fin.loss.toFixed(4)} — ${fin.level}. ` +
+      `Implement correction protocol and re-evaluate for CE declaration.`;
+  } else {
+    box.className = 'declaration-box ineligible';
+    box.style.borderColor=''; box.style.background='';
+    icon.textContent = '⊘';
+    title.textContent = 'CE Declaration Not Eligible';
+    body.textContent = `Governance Loss: ${r.govLoss.toFixed(4)} (${r.level}). ` +
+      `${r.contradictions.length} structural contradiction(s) detected. ` +
+      `Instability probability: ${(r.pInstab*100).toFixed(1)}%. ` +
+      `Resolve critical gaps before conformity assessment.`;
+  }
+}
+
+function appendLog(r){
+  const log = document.getElementById('logOutput');
+  const ts = new Date().toISOString().slice(11,19);
+  const lines = [
+    `<br><span class="l-info">[${ts}] Assessment run — Case: ${state.caseKey}</span>`,
+    `<span class="l-info">[${ts}] Seed: 42 | Fields: 9 | Articles: 10</span>`,
+    `<span class="${r.govLoss>0.10?'l-err':r.govLoss>0.05?'l-warn':'l-ok'}">[${ts}] Governance Loss: ${r.govLoss.toFixed(6)} → ${r.level}</span>`,
+    `<span class="l-info">[${ts}] KL(p||q_legal): ${r.kl.toFixed(6)} | Euler d: ${r.d.toFixed(6)}</span>`,
+    `<span class="${r.pInstab>0.5?'l-err':'l-ok'}">[${ts}] Instability probability: ${(r.pInstab*100).toFixed(2)}%</span>`,
+  ];
+  if(r.contradictions.length){
+    r.contradictions.forEach(c=>{
+      lines.push(`<span class="l-err">[${ts}] CONTRADICTION: ${c.type} [${c.severity}]</span>`);
+    });
+  } else {
+    lines.push(`<span class="l-ok">[${ts}] No structural contradictions detected.</span>`);
+  }
+  const corr = r.corrHistory;
+  lines.push(`<span class="l-info">[${ts}] Correction sim: ${corr.length} iterations | converged=${corr[corr.length-1].level==='Nominal'}</span>`);
+  lines.push(`<span class="${r.eligible?'l-ok':'l-warn'}">[${ts}] CE Declaration: ${r.eligible?'ELIGIBLE':'NOT ELIGIBLE (pre-correction)'}</span>`);
+
+  log.innerHTML += lines.join('<br>');
+  log.scrollTop = log.scrollHeight;
+}
+
+function exportJSON(){
+  if(!state.lastReport){ alert('Run an assessment first.'); return; }
+  const data = JSON.stringify({
+    report_id: `9DA-CE-${Date.now().toString(16)}`,
+    timestamp: new Date().toISOString(),
+    regulation: 'EU 2024/1689',
+    framework: '9DA™ Conformity Engine v2',
+    deterministic_seed: 42,
+    case: state.caseKey,
+    governance_metrics: {
+      governance_loss: +state.lastReport.govLoss.toFixed(6),
+      kl_divergence: +state.lastReport.kl.toFixed(6),
+      euler_distance: +state.lastReport.d.toFixed(6),
+      escalation_level: state.lastReport.level,
+      instability_probability: +state.lastReport.pInstab.toFixed(4),
+    },
+    q_legal: Q_LEGAL,
+    field_scores: state.lastReport.fieldScores,
+    structural_contradictions: state.lastReport.contradictions,
+    article_compliance: state.lastReport.artCompliance,
+    correction_simulation: {
+      iterations: state.lastReport.corrHistory.length,
+      initial: state.lastReport.corrHistory[0],
+      final: state.lastReport.corrHistory[state.lastReport.corrHistory.length-1],
+    },
+    conformity_declaration: {
+      eligible_pre_correction: state.lastReport.eligible,
+      eligible_post_correction: state.lastReport.corrHistory[state.lastReport.corrHistory.length-1].loss<=0.05,
+    }
+  }, null, 2);
+
+  const blob = new Blob([data], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `9DA_conformity_report_${Date.now()}.json`;
+  a.click();
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+
+initSliders();
+
+// Run initial assessment on load
+window.addEventListener('load', ()=>{
+  setTimeout(runAssessment, 500);
+});
+
+// Re-render euler canvas on resize
+window.addEventListener('resize', ()=>{
+  if(state.lastReport) renderEulerCanvas(state.lastReport);
+});
+</script>
+</body>
+</html>
