@@ -3,7 +3,7 @@
 **Deterministic Structural Conformity Assessment for High-Risk AI Systems**  
 **Regulation (EU) 2024/1689 · EU AI Act · Enforcement: August 2026**
 
-> **[▶ Watch Live Demo: 9DA™ NINE FIELDS](https://9datm.github.io/9DA-Core/eu-ai-act/9da_conformity_demo.html)**
+> **[▶ Watch Live Demo: 9DA™ CONFORMITY](https://9datm.github.io/9DA-Core/eu-ai-act/9da_conformity_demo.html)**
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8%2B-blue)](https://python.org)
