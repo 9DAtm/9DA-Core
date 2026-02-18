@@ -16,13 +16,7 @@ Python backend - Computational engine with full governance layer
 2. 9DA finds contradictions between your requirements that humans miss
 3. 9DA either helps you fix them (Approval Mode) or proves they can't be fixed (Termination Mode)
 
-## Open Benchmarks Grant Application
-
-9DA Core is submitted as governance benchmark infrastructure for the
-Snorkel Open Benchmarks Grant (March 2026).
-
-The AI evaluation gap requires benchmarks closing three dimensions:
-environment complexity, autonomy horizon, and output complexity.
+## The AI evaluation gap requires benchmarks closing three dimensions: environment complexity, autonomy horizon, and output complexity.
 
 9DA Core addresses all three:
 
