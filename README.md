@@ -16,9 +16,7 @@ Python backend - Computational engine with full governance layer
 2. 9DA finds contradictions between your requirements that humans miss
 3. 9DA either helps you fix them (Approval Mode) or proves they can't be fixed (Termination Mode)
 
-## The AI evaluation gap requires benchmarks closing three dimensions: environment complexity, autonomy horizon, and output complexity.
-
-9DA Core addresses all three:
+## 9DA Core addresses:
 
 **Environment Complexity**
 - Nine-field structure maps domain environments from human cognitive
