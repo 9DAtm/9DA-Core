@@ -60,6 +60,7 @@ open 9da_conformity_demo.html
 ```
 eu-ai-act/
 ├── conformity_engine_v4.py        # Core engine — stdlib only, production-ready
+├── 9DA_Governance_Production      # Interactive browser demo (zero dependencies)
 ├── 9da_conformity_demo.html       # Interactive browser demo (zero dependencies)
 ├── 9da_conformity_v4_figure.png   # Publication-quality 6-panel assessment figure
 ├── ANNEX_IV_TEMPLATE.docx         # Legally-structured Annex IV Technical Documentation template
