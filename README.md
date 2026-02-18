@@ -43,6 +43,9 @@ Neural architecture: [9DA](https://github.com/9DAtm/9DA)
 
 Classification standard: [9DA-AGI-ASI](https://github.com/9DAtm/9DA-AGI-ASI)
 
+CASE EU AI Act: [9DA-AGI-ASI](https://github.com/9DAtm/9DA-Core/tree/main/eu-ai-act)
+
+
 **Real-world example:**
 - **Input:** "Design a healthcare system that prevents burnout AND maximizes efficiency AND keeps costs low AND provides universal coverage"
 - **9DA Output:** "Constraints 2 and 3 mathematically conflict. Here are 5 ways to resolve this..."
