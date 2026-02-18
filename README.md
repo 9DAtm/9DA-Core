@@ -43,8 +43,7 @@ Neural architecture: [9DA](https://github.com/9DAtm/9DA)
 
 Classification standard: [9DA-AGI-ASI](https://github.com/9DAtm/9DA-AGI-ASI)
 
-CASE EU AI Act: [9DA-AGI-ASI](https://github.com/9DAtm/9DA-Core/tree/main/eu-ai-act)
-
+CASE Governance Conformity: [EU AI Act](https://github.com/9DAtm/9DA-Core/tree/main/eu-ai-act)
 
 **Real-world example:**
 - **Input:** "Design a healthcare system that prevents burnout AND maximizes efficiency AND keeps costs low AND provides universal coverage"
