@@ -5,7 +5,8 @@ This software is licensed under the 9DA™ Proprietary License.
 
 See LICENSE for full terms. For commercial licensing enquiries, contact info@9da.org
 
-**[▶ License: 9DA™ Proprietary](9DA_Proprietary_License.docx)**
+**[▶ License: 9DA™ Proprietary](https://github.com/9DAtm/9DA-Core/main/9DA_Proprietary_License.docx
+)**
 
 Docs/demo consists of:
 
