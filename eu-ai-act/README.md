@@ -7,11 +7,15 @@
 > 
 > **[▶ Watch Live Demo: 9DA™ CONFORMITY](https://9datm.github.io/9DA-Core/eu-ai-act/9da_conformity_demo.html)**
 
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8%2B-blue)](https://python.org)
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-2024%2F1689-gold)](https://artificialintelligenceact.eu)
 [![Version](https://img.shields.io/badge/version-4.0.0-brightgreen)](conformity_engine_v4.py)
 
+This software is licensed under the 9DA™ Proprietary License. 
+
+See LICENSE for full terms. For commercial licensing enquiries, contact info@9da.org
+
+**[▶ License: 9DA™ Proprietary](https://github.com/9DAtm/9DA-Core/blob/main/eu-ai-act/9DA_Proprietary_License.md)**
 ---
 
 ## What This Is
@@ -235,7 +239,11 @@ Website: [9da.org](https://9da.org)
 ## License
 
 Apache-2.0. The 9DA™ name, framework architecture, and q_legal method are IP of Zdenka Cucin.  
-© 2025–2026 Zdenka Cucin. See [LICENSE](LICENSE).
+© 2025–2026 Zdenka Cucin. This software is licensed under the 9DA™ Proprietary License. 
+
+See LICENSE for full terms. For commercial licensing enquiries, contact info@9da.org
+
+**[▶ License: 9DA™ Proprietary](https://github.com/9DAtm/9DA-Core/blob/main/eu-ai-act/9DA_Proprietary_License.md)**
 
 ---
 
