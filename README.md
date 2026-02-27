@@ -2,6 +2,7 @@
 **[▶ Watch Live Demo: 9DA™ NINE FIELDS](https://9datm.github.io/9DA-Core/demo_nine_fields.html)**
 
 This software is licensed under the 9DA™ Proprietary License. 
+
 See LICENSE for full terms. For commercial licensing enquiries, contact info@9da.org
 
 **[▶ License: 9DA™ Proprietary](https://9datm.github.io/9DA-Core/9DA_Proprietary_License.docx  )**
